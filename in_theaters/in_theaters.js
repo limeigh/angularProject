@@ -1,12 +1,12 @@
 (function(angular){
 	var app=angular.module('in_theaters',['ngRoute','myService'])
 	app.config(['$routeProvider',function($routeProvider){
-		$routeProvider.when('/in_theaters',{
+		$routeProvider.when('/in_theaters/:page?',{
 			templateUrl:'./in_theaters/in_theaters.html',
 			controller:'in_theaters_controller'
 		})
 	}])
-	app.controller('in_theaters_controller',['$scope','$http','$sce','myServiceName','$timeout',function($scope,$http,$sce,myServiceName,$timeout){
+	app.controller('in_theaters_controller',['$scope','$http','$sce','myServiceName','$timeout','$routeParams','$route',function($scope,$http,$sce,myServiceName,$timeout,$routeParams,$route){
     // $scope.data=null
     // $scope.getData=(function(){
     //   var xmlhttp;
@@ -42,7 +42,15 @@
        // }).then(function(res){
        //   console.log(res)
        // })
-       myServiceName.myJsonp('http://api.douban.com/v2/movie/in_theaters',{},function(data){
+       // console.dir($routeParams.page)
+       $scope.pageSize=5
+       $scope.page=($routeParams.page || '1')-0
+       $scope.getPage=function(nowPage){
+          $route.updateParams({
+            page:nowPage
+          })
+       }
+       myServiceName.myJsonp('http://api.douban.com/v2/movie/in_theaters',{start:($scope.page-1)*$scope.pageSize,count:$scope.pageSize},function(data){
         // console.log(data)
         // $timeout(function(){
         //    $scope.data=data
