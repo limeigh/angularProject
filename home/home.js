@@ -4,8 +4,6 @@
 		$routeProvider.when('/home_page',{
 			templateUrl:'./home/home.html',
 			controller:'homeController'
-		}).otherwise({
-			redirectTo:'home_page'
 		})
 		$locationProvider.hashPrefix('')
 	}])

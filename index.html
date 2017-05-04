@@ -12,16 +12,16 @@
 		<div class="header">
 			<a href="#/home_page"><img src="assets/img/logo.png" alt=""></a>
 			<div class="search">
-				<input type="text" placeholder="电影搜索" class="my-input">
-				<button>搜索</button>
+				<input type="text" placeholder="电影搜索" class="my-input" ng-model="query">
+				<button><a href="#/search?q={{query}}">搜索</a></button>
 			</div>
 		</div>
 		<nav class="nav">
 			<ul>
-				<li ng-class="{active:hash==='/home_page'}"><a href="#/home_page">首页</a></li>
-				<li ng-class="{active:hash==='/in_theaters'}"><a href="#/in_theaters">正在热映</a></li>
-				<li ng-class="{active:hash==='/cooming_soon'}"><a href="#/cooming_soon">即将上映</a></li>
-				<li ng-class="{active:hash==='/top250'}"><a href="#/top250">Top250</a></li>
+				<li ng-class="{active:hash.indexOf('/home_page') !=-1}"><a href="#/home_page">首页</a></li>
+				<li ng-class="{active:hash.indexOf('/in_theaters') != -1}"><a href="#/in_theaters">正在热映</a></li>
+				<li ng-class="{active:hash.indexOf('/coming_soon') !=-1}"><a href="#/coming_soon">即将上映</a></li>
+				<li ng-class="{active:hash.indexOf('/top250') !=-1}"><a href="#/top250">Top250</a></li>
 			</ul>
 		</nav>
 	</div>
@@ -40,8 +40,9 @@
 	<script src="app.js"></script>
 	<script src="./home/home.js"></script>
 	<script src="./in_theaters/in_theaters.js"></script>
-	<script src="./cooming_soon/cooming_soon.js"></script>
-	<script src="./top250/top250.js"></script>
+	<script src="./detail/detail.js"></script>
+<!-- <script src="./cooming_soon/cooming_soon.js"></script>
+	<script src="./top250/top250.js"></script> -->
 	<script src="./myService/myService.js"></script>
 </body>
 </html>

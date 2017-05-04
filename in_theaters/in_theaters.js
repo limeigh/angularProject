@@ -1,12 +1,10 @@
 (function(angular){
 	var app=angular.module('in_theaters',['ngRoute','myService'])
 	app.config(['$routeProvider',function($routeProvider){
-		$routeProvider.when('/in_theaters/:page?',{
+		$routeProvider.when('/:movieType/:page?',{
 			templateUrl:'./in_theaters/in_theaters.html',
 			controller:'in_theaters_controller'
-		}).when('/detail',{
-      templateUrl:'./detail/detail.html'
-    })
+		})
 	}])
 	app.controller('in_theaters_controller',['$scope','$http','$sce','myServiceName','$timeout','$routeParams','$route',function($scope,$http,$sce,myServiceName,$timeout,$routeParams,$route){
     // $scope.data=null
@@ -44,8 +42,16 @@
        // }).then(function(res){
        //   console.log(res)
        // })
-       // console.dir($routeParams.page)
-       $scope.pageSize=5
+       // console.dir($routeParams)
+       var movieTypeObj={in_theaters:'in_theaters',coming_soon:'coming_soon',top250:'top250',search:'search'}
+       if(!($routeParams.movieType in movieTypeObj)){
+          $routeParams.movieType='in_theaters'
+          $route.updateParams({
+            movieType:$routeParams.movieType
+          })
+       }
+       $scope.loading=true
+       $scope.pageSize=10
        $scope.page=($routeParams.page || '1')-0
        $scope.getPage=function(nowPage){
           if(nowPage<1 || nowPage>$scope.totalPage){
@@ -55,13 +61,14 @@
             page:nowPage
           })
        }
-       myServiceName.myJsonp('http://api.douban.com/v2/movie/in_theaters',{start:($scope.page-1)*$scope.pageSize,count:$scope.pageSize},function(data){
+       myServiceName.myJsonp('http://api.douban.com/v2/movie/'+$routeParams.movieType,{start:($scope.page-1)*$scope.pageSize,count:$scope.pageSize,q:$routeParams.q},function(data){
         // console.log(data)
         // $timeout(function(){
         //    $scope.data=data
         // })
             $scope.data=data
             $scope.totalPage=Math.ceil(data.total/$scope.pageSize)
+            $scope.loading=false
             $scope.$apply()
        })
 	}])
