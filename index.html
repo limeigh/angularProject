@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="assets/css/reset.css?v=20170502">
 	<link rel="stylesheet" type="text/css" href="assets/css/wap.css">
 </head>
-<body ng-app="main">
+<body ng-app="main" ng-controller="controller">
 <!-- top stat -->
 	<div class="top">
 		<div class="header">
@@ -18,10 +18,10 @@
 		</div>
 		<nav class="nav">
 			<ul>
-				<li class="active"><a href="#/home_page">首页</a></li>
-				<li><a href="#/in_theaters">正在热映</a></li>
-				<li><a href="#/cooming_soon">即将上映</a></li>
-				<li><a href="">Top250</a></li>
+				<li ng-class="{active:hash==='/home_page'}"><a href="#/home_page">首页</a></li>
+				<li ng-class="{active:hash==='/in_theaters'}"><a href="#/in_theaters">正在热映</a></li>
+				<li ng-class="{active:hash==='/cooming_soon'}"><a href="#/cooming_soon">即将上映</a></li>
+				<li ng-class="{active:hash==='/top250'}"><a href="#/top250">Top250</a></li>
 			</ul>
 		</nav>
 	</div>
@@ -29,33 +29,10 @@
 
 	<div class="container">
 		<div ng-view></div>
-		<div class="detail">
-		    <h1>乾隆秘史  大清宝典</h1>
-		    <div class="dt-info">
-		        <div class="dti-i"><img src="assets/img/sc.jpg" alt=""></div>
-		        <div class="dti-w">
-		            <p>
-		                <strong>导演：</strong>
-		                <span>XXX、XXX</span>
-		            </p>
-		            <p>
-		                <strong>主演：</strong>
-		                <span>舒畅、XXX</span>
-		            </p>
-		            <p><strong>类型：</strong>爱情、古装</p>
-		            <p><strong>国家：</strong>中国</p>
-		            <p><strong>评分：</strong>9.9</p>
-		            <p><strong>时间：</strong>2016</p>
-		            <p><strong>又名：</strong>大清宝典</p>
-		        </div>
-		    </div>
-		    <h3>剧情简介:</h3>
-		    <p style="color:#676767">这里剧情简介。这里剧情简介。这里剧情简介。这里剧情简介。这里剧情简介。这里剧情简介。这里剧情简介。这里剧情简介。这里剧情简介。这里剧情简介。这里剧情简介。这里剧情简介。这里剧情简介。这里剧情简介。这里剧情简介。这里剧情简介。这里剧情简介。这里剧情简介。这里剧情简介。这里剧情简介。这里剧情简介。这里剧情简介。这里剧情简介。这里剧情简介。这里剧情简介。这里剧情简介。这里剧情简介。</p>
-		</div>
 	</div>
 	<footer class="footer">
 	    <div class="container">
-	        <p>版权所有&copy; 前端与移动开发学院 火骑士空空(允许侵权)</p>
+	        <p>版权所有&copy; angular实例 dhq(允许侵权)</p>
 	    </div>
 	</footer>
 	<script src="node_modules/angular/angular.js"></script>
@@ -64,6 +41,7 @@
 	<script src="./home/home.js"></script>
 	<script src="./in_theaters/in_theaters.js"></script>
 	<script src="./cooming_soon/cooming_soon.js"></script>
+	<script src="./top250/top250.js"></script>
 	<script src="./myService/myService.js"></script>
 </body>
 </html>

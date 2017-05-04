@@ -4,7 +4,9 @@
 		$routeProvider.when('/in_theaters/:page?',{
 			templateUrl:'./in_theaters/in_theaters.html',
 			controller:'in_theaters_controller'
-		})
+		}).when('/detail',{
+      templateUrl:'./detail/detail.html'
+    })
 	}])
 	app.controller('in_theaters_controller',['$scope','$http','$sce','myServiceName','$timeout','$routeParams','$route',function($scope,$http,$sce,myServiceName,$timeout,$routeParams,$route){
     // $scope.data=null
@@ -46,6 +48,9 @@
        $scope.pageSize=5
        $scope.page=($routeParams.page || '1')-0
        $scope.getPage=function(nowPage){
+          if(nowPage<1 || nowPage>$scope.totalPage){
+            return
+          }
           $route.updateParams({
             page:nowPage
           })
@@ -56,6 +61,7 @@
         //    $scope.data=data
         // })
             $scope.data=data
+            $scope.totalPage=Math.ceil(data.total/$scope.pageSize)
             $scope.$apply()
        })
 	}])
